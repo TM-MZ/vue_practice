@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="http://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app" class="app">
+            <!-- 切り替えタブ -->
+            <h2 class="title">切り替えタブ</h2>
+            <ul class="tab-menu">
+                <li
+                    v-on:click="changeTab(1)"
+                    class="tab-menu__item"
+                    v-bind:class="{'active': isTabActive === 1}"
+                >
+                    タブ１
+                </li>
+                <li
+                    v-on:click="changeTab(2)"
+                    class="tab-menu__item"
+                    v-bind:class="{'active': isTabActive === 2}"
+                >
+                    タブ２
+                </li>
+                <li
+                    v-on:click="changeTab(3)"
+                    class="tab-menu__item"
+                    v-bind:class="{'active': isTabActive === 3}"
+                >
+                    タブ３
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-content__item" v-if="isTabActive === 1">
+                    コンテンツ１
+                </div>
+                <div class="tab-content__item" v-if="isTabActive === 2">
+                    コンテンツ２
+                </div>
+                <div class="tab-content__item" v-if="isTabActive === 3">
+                    コンテンツ３
+                </div>
+            </div>
+            <!-- モーダルウインドウ -->
+            <h2 class="title">モーダルウインドウ</h2>
+            <button v-on:click="openModal" class="openBtn">開く</button>
+            <div id="modal" class="modal" v-if="isModalActive === true">
+                <div class="modal__content" v-on:click="closeModal">
+                    <div class="modal__content-inner">
+                        <p class="modal__content-text">モーダル</p>
+                        <button v-on:click="closeModal" class="closeBtn">閉じる</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const vm = new Vue({
+                el: "#app",
+                data: {
+                    isTabActive: 1,
+                    isModalActive: false,
+                },
+                methods: {
+                    changeTab(num) {
+                        this.isTabActive = num;
+                    },
+                    openModal() {
+                        this.isModalActive = true;
+                    },
+                    closeModal(event) {
+                        target=event.target;
+                        console.log(event.target.className);
+                        if( !target.closest(".modal__content-inner")  && target.className !== "openBtn" || target.className === "closeBtn"){
+                            this.isModalActive = false;
+                        }
+                        
+                    }
+                },
+            });
+        </script>
+    </body>
+</html>
