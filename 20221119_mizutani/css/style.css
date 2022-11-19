@@ -27,7 +27,8 @@
     color:white;
 }
 .tab-content{
-    height:200px;
+    width:500px;
+    height:100px;
     border:1px solid #000;
 }
 .tab-content__item{
@@ -62,4 +63,11 @@
 .modal__content-text{
     font-size:50px;
     margin-bottom:50px;
+}
+.search{
+    border:3px solid #7fbc6e;
+    border-radius: 5px;
+}
+.name__list li{
+    padding:5px 0;
 }

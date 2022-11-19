@@ -54,10 +54,22 @@
                 <div class="modal__content" v-on:click="closeModal">
                     <div class="modal__content-inner">
                         <p class="modal__content-text">モーダル</p>
-                        <button v-on:click="closeModal" class="closeBtn">閉じる</button>
+                        <button v-on:click="closeModal" class="closeBtn">
+                            閉じる
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <!-- リアルタイム検索 -->
+            <h2 class="title">リアルタイム検索</h2>
+            <input type="text" name="text" class="search" v-model="text" />
+            <ul class="name__list">
+                <li v-if="search(0)">{{names[0]}}</li>
+                <li v-if="search(1)">{{names[1]}}</li>
+                <li v-if="search(2)">{{names[2]}}</li>
+                <li v-if="search(3)">{{names[3]}}</li>
+            </ul>
         </div>
 
         <script>
@@ -66,6 +78,9 @@
                 data: {
                     isTabActive: 1,
                     isModalActive: false,
+                    names:['佐藤','山田','鈴木','田中'],
+                    text:"",
+
                 },
                 methods: {
                     changeTab(num) {
@@ -80,7 +95,17 @@
                         if( !target.closest(".modal__content-inner")  && target.className !== "openBtn" || target.className === "closeBtn"){
                             this.isModalActive = false;
                         }
-                        
+
+                    },
+                    search(index){
+                        if(this.text==""){
+                            return true;
+                        }else if(this.names[index].indexOf(this.text)>-1){
+                            return true;
+                        } else{
+                            return false;
+                        }
+
                     }
                 },
             });
